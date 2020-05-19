@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Fivet.server
+namespace Fivet.Server
 {
     class Program
     {
