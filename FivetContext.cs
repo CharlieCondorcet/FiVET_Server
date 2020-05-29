@@ -39,6 +39,8 @@ namespace Fivet.Dao
             {
                 // Primary Key
                 p.HasKey(p => p.uid); 
+                // Required rut
+                p.Property(p => p.rut).IsRequired(); 
                 // Index in Email
                 p.Property(p => p.email).IsRequired();
                 p.HasIndex(p => p.email).IsUnique();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Fivet.Dao;
 
 namespace Fivet.Server
 {
@@ -42,6 +43,8 @@ namespace Fivet.Server
             // Service inside the DI
             .ConfigureServices((hostContext, services) => 
             {
+                // The FivetContext
+                services.AddDbContext<FivetContext>(); 
                 // The FivetService
                 services.AddHostedService<FivetService>();
                 // The Logger
