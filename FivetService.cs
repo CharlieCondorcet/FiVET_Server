@@ -31,7 +31,7 @@ namespace Fivet.Server
         /// <summary>
         /// The System.
         /// </summary>
-        private readonly TheSystemDisp_ _theSystem; 
+        private readonly TheSystemDisp_ _theSystem;
 
         /// <summary>     
         /// The Contratos.
@@ -47,7 +47,7 @@ namespace Fivet.Server
             _logger = logger;
             _logger.LogDebug("Building FivetService..");
             _theSystem = theSystem;
-            _contratos = contratos; 
+            _contratos = contratos;
             _communicator = buildCommunicator();
         }
 
@@ -63,14 +63,14 @@ namespace Fivet.Server
             // tcp (protocol) -z (compression) -t 15000 (timeout in ms) -p 8080 (port to bind)
             var adapter = _communicator.createObjectAdapterWithEndpoints("TheSystem", "tcp -z -t 15000 -p " + _port);
 
-            // The interface
-            TheSystem theSystem = new TheSystemImpl();
-
             // Register in the communicator
-            adapter.add(theSystem, Util.stringToIdentity("TheSystem"));
+            adapter.add(_theSystem, Util.stringToIdentity("TheSystem"));
 
             // Activation
             adapter.activate();
+
+            // The Delay call.
+            _theSystem.getDelay(0);
 
             // All ok
             return Task.CompletedTask;
@@ -82,7 +82,7 @@ namespace Fivet.Server
         /// </summary>
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogDebug("Stopping the FivetService ..");
+            _logger.LogInformation("Stopping the FivetService ..");
 
             _communicator.shutdown();
 
@@ -109,15 +109,23 @@ namespace Fivet.Server
 
             return Ice.Util.initialize(initializationData);
         }
+
+        /// <summary>
+        /// Clear the memory.
+        /// </summary>
+        public void Dispose()
+        {
+            _communicator.destroy(); 
+        }
     }
-    
+
 
     /// <summary>
     /// The Implementation of TheSystem interface.
     /// </summary>
     public class TheSystemImpl : TheSystemDisp_
     {
-        
+
         /// <summary>
         /// Return the difference in the time.
         /// </summary>
