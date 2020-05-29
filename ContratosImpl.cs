@@ -26,8 +26,7 @@ namespace Fivet.ZeroIce
         /// </summary>
         /// <param name="logger"> </param>
         /// <param name="serviceScopeFactory"> </param>
-        public ContratosImpl(ILogger<ContratosImpl> logger, 
-        IServiceScopeFactory serviceScopeFactory)
+        public ContratosImpl(ILogger<ContratosImpl> logger, IServiceScopeFactory serviceScopeFactory)
         {
             _logger = logger; 
             _logger.LogDebug("Building the ContratosImpl..");

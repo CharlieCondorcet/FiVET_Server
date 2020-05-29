@@ -3,6 +3,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Fivet.Dao;
 using Fivet.ZeroIce;
+using Fivet.ZeroIce.model;
+
 
 namespace Fivet.Server
 {
