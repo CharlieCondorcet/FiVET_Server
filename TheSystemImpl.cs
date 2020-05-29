@@ -4,6 +4,9 @@ using Ice;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+/// <summary>
+/// The Implementation to TheSystem.
+/// </summary>
 namespace Fivet.ZeroIce
 {
     /// <summary>
@@ -19,6 +22,8 @@ namespace Fivet.ZeroIce
         /// <summary>
         /// The Constructor.
         /// </summary>
+        /// <param name="logger">The Logger</param>
+        /// <param name="serviceScopeFactory">The Scope</param>
         public TheSystemImpl(ILogger<TheSystemImpl> logger, IServiceScopeFactory serviceScopeFactory)
         {
             _logger = logger;
@@ -35,7 +40,7 @@ namespace Fivet.ZeroIce
         {
             return DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - clientTime;
         }
-        
+
     }
 
 }
