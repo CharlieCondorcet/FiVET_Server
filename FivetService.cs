@@ -8,9 +8,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Fivet.Server
 {
-    internal class FivetService : IHostedService
+    /// <summary>
+    /// The Fivet Service.
+    /// </summary>
+    internal class FivetService : IHostedService, IDisposable
     {
-
         /// <summary>
         /// The Logger.
         /// </summary>
@@ -26,14 +28,26 @@ namespace Fivet.Server
         /// </summary>
         private readonly Communicator _communicator;
 
+        /// <summary>
+        /// The System.
+        /// </summary>
+        private readonly TheSystemDisp_ _theSystem; 
+
+        /// <summary>     
+        /// The Contratos.
+        /// </summary>        
+        private readonly ContratosDisp_ _contratos;
 
         /// <summary>
         /// The FivetService.
         /// </summary>
         /// <param name="logger">Used to print debug message.</param>
-        public FivetService(ILogger<FivetService> logger)
+        public FivetService(ILogger<FivetService> logger, TheSystemDisp_ theSystem, ContratosDisp_ contratos)
         {
             _logger = logger;
+            _logger.LogDebug("Building FivetService..");
+            _theSystem = theSystem;
+            _contratos = contratos; 
             _communicator = buildCommunicator();
         }
 

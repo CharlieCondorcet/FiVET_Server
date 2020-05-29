@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Fivet.Dao;
+using Fivet.ZeroIce;
 
 namespace Fivet.Server
 {
@@ -43,6 +44,10 @@ namespace Fivet.Server
             // Service inside the DI
             .ConfigureServices((hostContext, services) => 
             {
+                // The system
+                services.AddSingleton<TheSystemDisp_, TheSystemImpl>();
+                // Contratos         
+                services.AddSingleton<ContratosDisp_, ContratosImpl>();
                 // The FivetContext
                 services.AddDbContext<FivetContext>(); 
                 // The FivetService
