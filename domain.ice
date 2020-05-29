@@ -18,56 +18,58 @@
 module model {
 
     /**
-     * Clase Persona
+     * Clase Persona (duenio de mascota).
      */
+     [cs:property]
     class Persona {
 
         /**
-         * Pk
+         * Primary Key.
          */
-        int id;
+        int uid;
 
         /**
-         * Rut: 113335557
+         * Rut: 113335557.
          */
         string rut;
 
         /**
-         * Nombre
+         * Nombre.
          */
         string nombre;
 
         /**
-         * Direccion
+         * Direccion.
          */
         string direccion;
 
         /**
-         * Telefono Fijo: +55 55 550000
+         * Telefono Fijo: +55 55 550000.
          */
         long telefonoFijo;
 
-       /**
-         * Telefono Fijo: +55 55 550000
+        /**
+         * Telefono Fijo: +55 55 550000.
          */
         long telefonoMovil;
 
         /**
-         * Email
+         * Correo electronico.
          */
         string email;
+
     }
 
     /**
-     * Enumeracion para atributo Sexo
+     * Sexo del paciente.
      */
-     enum Sexo {
-         MACHO,
-         HEMBRA
-     }
+    enum Sexo {
+        MACHO,
+        HEMBRA
+    }
 
      /**
-      * TIpo de Paciente
+      * Tipo de paciente.
       */
      enum TipoPaciente {
          INTERNO,
@@ -75,174 +77,159 @@ module model {
      }
 
     /**
-     * Clase Ficha
+     * Clase Ficha (identifica una mascota).
      */
-     class Ficha{
+    [cs:property]
+    class Ficha{
 
         /**
-         * PK
+         * Primary key.
          */
-         int id;
+        int uid;
 
-         /**
-          * Numero: 1133
-          */
-         int numero;
+        /**
+         * Numero: 1133.
+         */
+        int numero;
 
-         /**
-          * Nombre: Misifus
-          */
-         string nombre;
+        /**
+         * Nombre: Misifus.
+         */
+        string nombre;
 
-         /**
-          * Especie: Gatuno
-          */
-         string especie;
+        /**
+         * Especie: Gatuno.
+         */
+        string especie;
 
-         /**
-          * Fecha nacimiento.
-          */
-         string fecha;
+        /**
+         * Fecha nacimiento.
+         * Format: ISO_ZONED_DATE_TIME
+         */
+        string fechaNacimiento;
 
-         /**
-          * Raza de la mascota.
-          */
-         string raza;
+        /**
+         * Raza de la mascota.
+         */
+        string raza;
 
-         /**
-          * Sexo paciente; Macho/Hembra
-          */
-         Sexo sexo;
+        /**
+         * Color paciente: blanco perlado.
+         */
+        string color;
 
-         /**
-          * Tipo pacinte; Interno/Externo
-          */
-         TipoPaciente tipoPaciente;
+        /**
+         * Sexo paciente: Macho/Hembra.
+         */
+        Sexo sexo;
+
+        /**
+         * Tipo pacinte: Interno/Externo.
+         */
+        TipoPaciente tipoPaciente;
      }
 
-     /**
-      * Clase Control para las mascotas
-      */
-      class ControlMascota{
+    /**
+     * Clase Control para las mascotas.
+     */
+    [cs:property]
+    class Control{
 
-          /**
-           * Fecha de emision
-           */
-           string fecha;
+        /**
+         * Primary key.
+         */
+        int uid;
 
-          /**
-           * Fecha de proximo control
-           */
-           string proximoControl;
+        /**
+         * Fecha de emision.
+         * Format: ISO_ZONED_DATE_TIME
+         */
+        string fechaEmision;
 
-          /**
-           * Temperatura mascota
-           */
-           double temperatura;
+        /**
+         * Fecha de proximo control.
+         * Format: ISO_ZONED_DATE_TIME
+         */
+        string fechaProximoControl;
 
-          /**
-           * Peso mascota
-           */
-           double peso;
+        /**
+         * Temperatura mascota.
+         */
+        double temperatura;
 
-          /**
-           * Altura mascota
-           */
-           double altura;
+        /**
+         * Peso mascota.
+         */
+        double peso;
 
-          /**
-           * Diagnostico para la mascota
-           */
-           string diagnostico;
+        /**
+         * Altura mascota.
+         */
+        double altura;
 
-          /**
-           * Nombre veterinario
-           */
-           string veterinario;
-      }
+        /**
+         * Diagnostico para la mascota.
+         */
+        string diagnostico;
 
+    }
 
-     /**
-      * Clase Examen de Control
-      */
-      class Examen{
+    /**
+     * Interface para operaciones basicas en el sistema.
+     */
+    interface Contratos {
 
-          /**
-           * Tipo: Radiologia
-           */
-           string tipo;
+        /**
+         * Deseo registrar los datos de un paciente.
+         *
+         * @param ficha a crear en el backend.
+         * @return the ficha almacenada en el backend (con numero asignado).
+         */
+        Ficha crearFicha(Ficha ficha);
 
-          /**
-           * Fecha del Examen
-           */
-           string fecha;
-      }
+        /**
+         * Deseo registrar los datos del duenio de un paciente.
+         *
+         * @param persona a crear en el backend.
+         * @return the Persona almacenada en el backend.
+         */
+        Persona crearPersona(Persona persona);
 
-    //TODO: modificar Foto, puede no ser una clase.
-     /**
-      * Clase Foto de Mascota
-      */
-      class Foto{
+        /**
+         * Deseo registrar los datos de un Control.
+         *
+         * @param numeroFicha al cual sera asignado el control.
+         * @param control a agregar.
+         */
+        Control crearControl(int numeroFicha, Control control);
 
-         /**
-          * Direccion foto mascota: perfilMisifus.jpg
-          */
-         string urlFoto;
-      }
+        /**
+         * Dado un numero de ficha, retorna la ficha asociada.
+         *
+         * @param numero de la ficha a obtener.
+         * @return the Ficha.
+         */
+        Ficha obtenerFicha(int numero);
+
+        /**
+         * Dado un numero de rut obtiene la persona.
+         *
+         * @param rut de la persona a buscar.
+         * @return the Persona.
+         */
+        Persona obtenerPersona(string rut);
+
+    }
 
     /**
      * The base system.
      */
-     interface TheSystem {
+    interface TheSystem {
 
         /**
          * @return the diference in time between client and server.
          */
         long getDelay(long clientTime);
 
-     }
-
-     //TODO: documentar bien e implementar
-     /**
-      * Interface para operaciones basicas en el sistema.
-      */
-      interface Contratos {
-
-         /**
-          * Ingresar una Ficha (paciente), historias de usuario 1.
-          */
-         Ficha ingresarPaciente (Ficha ficha);
-
-         /**
-          * Obtener una Ficha dado el Numero de Ficha.
-          */
-         Ficha obtenerPaciente (int numeroFicha);
-
-         /**
-          * Ingresar una Persona (dueño), historias de usuario 2.
-          */
-         Persona ingresarPersona (Persona persona);
-
-         /**
-          * Obtener una Persona dado su Rut.
-          */
-         Persona obtenerPersona (string rut);
-
-         /**
-          * Ingresar un Control, historias de usuario 3.
-          */
-         ControlMascota ingresarControl (ControlMascota control);
-
-         /**
-          * Ingresar una Foto, historias de usuario 4.
-          */
-          Foto ingresarFoto (Foto foto);
-
-         /**
-          * Ingresar un Examen, historias de usuario 5.
-          */
-         Examen ingresarExamen (Examen examen);
-
-      }
-
+    }
 }
