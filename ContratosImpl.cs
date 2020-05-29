@@ -53,6 +53,17 @@ namespace Fivet.ZeroIce
             throw new System.NotImplementedException(); 
         }
 
+        public override Persona obtenerPersona(string rut, Current current = null)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Ficha obtenerFicha(int numero, Current current = null)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+
         /// <sumary>
         /// Create the Persona.
         /// </summary>
@@ -68,8 +79,8 @@ namespace Fivet.ZeroIce
                 return persona; 
             }
         }
-        
-        
+
+
     }
     
 }
