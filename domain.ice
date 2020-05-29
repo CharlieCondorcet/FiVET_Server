@@ -20,7 +20,7 @@ module model {
     /**
      * Clase Persona (duenio de mascota).
      */
-     [cs:property]
+    ["cs:property"]
     class Persona {
 
         /**
@@ -79,7 +79,7 @@ module model {
     /**
      * Clase Ficha (identifica una mascota).
      */
-    [cs:property]
+    ["cs:property"]
     class Ficha{
 
         /**
@@ -132,7 +132,7 @@ module model {
     /**
      * Clase Control para las mascotas.
      */
-    [cs:property]
+    ["cs:property"]
     class Control{
 
         /**
